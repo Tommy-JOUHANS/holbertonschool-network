@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
-
 # Script to change hostname resolutions in /etc/hosts
 # Changes localhost to 127.0.0.2 and facebook.com to 8.8.8.8
 
-# Backup the original /etc/hosts file
 cp /etc/hosts /etc/hosts.backup
 
-# Update localhost entry from 127.0.0.1 to 127.0.0.2
 sed -i 's/127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' /etc/hosts
 
-# Remove any existing facebook.com entries
 sed -i '/facebook\.com/d' /etc/hosts
 
-# Add the new facebook.com entry
 echo "8.8.8.8 facebook.com" >> /etc/hosts
