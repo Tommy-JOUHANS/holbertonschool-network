@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to change hostname resolutions in /etc/hosts
 # Changes localhost to 127.0.0.2 and facebook.com to 8.8.8.8
