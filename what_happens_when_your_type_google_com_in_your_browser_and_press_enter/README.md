@@ -6,25 +6,38 @@
 
 When you type https://www.google.com and press Enter, a sequence of network, security, and server-side systems work together to retrieve the page.
 
+![what_happen_when_diagram](what_happen_when_diagram.svg)
+
 ## 1. DNS request
 
 The browser first needs to find the IP address for www.google.com. It checks the local DNS cache, then the system hosts file, and finally asks the configured DNS resolver. The resolver may use recursive queries to root, TLD, and authoritative name servers until it gets an answer. The result is one or more IP addresses for Google's servers.
+
+![DNS_Lookup_Chain](DNS_Lookup_Chain.svg)
 
 ## 2. TCP/IP
 
 With the server IP known, the browser starts a TCP connection to port 443. TCP uses a three-way handshake: SYN, SYN-ACK, ACK. The packets travel over IP through routers and switches across networks. Each hop forwards the IP packet toward Google’s data center using the internet’s routing tables.
 
+![TCP](TCP.svg)
+
+
 ## 3. Firewall
 
 Firewalls on the client network, the internet path, or Google's edge can inspect the traffic. They typically allow outbound HTTPS traffic on port 443 and block unauthorized ports or suspicious packets. The firewall ensures only valid connections are permitted and can drop malformed TCP/IP packets.
+
+![Packet_Filtering](Packet_Filtering.svg)
 
 ## 4. HTTPS/SSL
 
 Once the TCP session is established, the browser initiates the TLS handshake for HTTPS. The server presents a certificate proving it owns google.com. The browser verifies the certificate chain, validates the trusted certificate authority, and agrees on encryption keys. After the TLS handshake, the HTTP request is encrypted inside the secure channel.
 
+![HTTPS-SSL](HTTPS-SSL.svg)
+
 ## 5. Load-balancer
 
 Google uses load balancers to handle massive incoming traffic. The request likely reaches a global load balancer or edge proxy first. The load balancer distributes requests to healthy backend servers and optimizes latency by choosing a nearby data center or the best available server.
+
+![Traffic Distribution](Traffic Distribution.svg)
 
 ## 6. Web server
 
@@ -37,6 +50,8 @@ The application server contains the logic for search, page generation, and user 
 ## 8. Database
 
 Databases store the structured data needed by application servers. For a search engine, this includes indexes, user preferences, and metadata. The application server sends queries to the database, receives results, and uses that data to build the final web page.
+
+![Server-stack](Server-stack.svg)
 
 After the application server prepares the response, the web server sends it back over the secure TLS session. The browser receives the encrypted response, decrypts it, and renders the page. This completes the process of loading https://www.google.com.
 
