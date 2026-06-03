@@ -4,17 +4,30 @@ When you type `https://www.google.com` in your browser and press Enter, the requ
 
 Published URL: https://medium.com/@12119_57011/everythings-better-with-a-pretty-diagram-146855c801c7?postPublishedType=repub
 
-![HTTPS request flow diagram](request_flow.svg)
 
-Flow schema:
-- Browser starts with DNS resolution for `www.google.com`.
-- DNS returns the server IP address.
-- The browser connects to the server IP on port `443` using HTTPS.
-- The traffic is encrypted with TLS.
-- Encrypted traffic passes through a firewall.
-- The request is distributed by a load balancer.
-- The load balancer forwards the request to a web server.
-- The web server forwards application logic to the application server.
-- The application server may request data from the database.
-- The application server generates the web page.
-- The web server serves the generated web page back to the browser.
+
+
+The flow, left to right:
+
+DNS Resolver : The browser first does a DNS lookup: it asks “what’s the IP address for www.google.com?" and gets back something like 142.250.x.x. Names are for humans; the network needs the number.
+
+Browser : With the IP in hand, the browser opens a TCP connection on port 443 (the standard port for encrypted HTTPS traffic).
+
+Firewall : The request passes through a firewall that inspects traffic, allows port 443, and blocks anything it considers a threat. It forwards the legitimate HTTPS request onward.
+Load Balancer : This handles TLS/SSL (the encryption handshake) and decides which server should handle you, using geo-based routing to send you to a nearby data center and spread load across machines.
+
+Web Server (nginx / Apache) : Manages HTTP headers and serves the web page. Static content it can return directly; anything dynamic it passes on as a “dynamic request.”
+App Server :Runs the business logic: generates the page, calls internal APIs, and queries the database when it needs data.
+
+Database : Holds the search index, user preferences, and metadata. It runs the SQL query and returns results back to the app server.
+
+
+The return trip: the response travels back the same chain in reverse — the curved arrows labeled “Encrypted HTTPS response (TLS)” show the data flowing back through the web server, load balancer, firewall, and finally to your browser, encrypted the whole way.
+
+A couple of notes on the diagram’s conventions:
+
+The legend (bottom-left) distinguishes request/unencrypted hops, encrypted HTTPS/TLS hops, responses, and the DNS lookup. The pink diamonds (browser, firewall, load balancer, web server) are the decision/processing points along the path, while the blue boxes are the endpoints (DNS, app server, database). The note reminds you that all the main traffic runs over HTTPS on TCP port 443.
+
+One small technical caveat: the diagram labels the browser→firewall hop as plain “TCP:443,” but in reality the encryption (TLS) is established right at the start of that connection, so traffic is encrypted from the browser onward, not only on the return trip.
+
+Tommy JOUHANS, Student of Holberton School at Dijon, From France.
