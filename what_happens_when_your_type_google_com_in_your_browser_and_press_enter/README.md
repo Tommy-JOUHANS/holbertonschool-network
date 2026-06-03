@@ -1,5 +1,7 @@
 # What Happens When You Type https://www.google.com in Your Browser and Press Enter
 
+## Task 0 :
+
 **Published URL:** https://medium.com/@12119_57011/what-happens-when-https-s3-eu-west-3-amazonaws-com-hbtn-intranet-project-files-holbertonschoo-36245bc2e27f
 
 When you type https://www.google.com and press Enter, a sequence of network, security, and server-side systems work together to retrieve the page.
@@ -39,7 +41,7 @@ Databases store the structured data needed by application servers. For a search 
 After the application server prepares the response, the web server sends it back over the secure TLS session. The browser receives the encrypted response, decrypts it, and renders the page. This completes the process of loading https://www.google.com.
 
 
-# What happens when you type `https://www.google.com` and press Enter
+## Task 1 :
 
 When you type `https://www.google.com` in your browser and press Enter, the request flow includes DNS resolution, encrypted HTTPS traffic, firewall traversal, load balancing, web server handling, application server page generation, and database access.
 
