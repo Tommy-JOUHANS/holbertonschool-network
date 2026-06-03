@@ -2,6 +2,8 @@
 
 When you type `https://www.google.com` in your browser and press Enter, the request flow includes DNS resolution, encrypted HTTPS traffic, firewall traversal, load balancing, web server handling, application server page generation, and database access.
 
+Published URL: https://medium.com/@12119_57011/everythings-better-with-a-pretty-diagram-146855c801c7?postPublishedType=repub
+
 ![HTTPS request flow diagram](request_flow.svg)
 
 Flow schema:
